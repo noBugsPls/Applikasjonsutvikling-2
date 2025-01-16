@@ -15,8 +15,13 @@ function getPoem(req, res, next) {
   res.status(HTTP_CODES.SUCCESS.OK).send(poem).end();
 }
 
+function getQuote(req, res, next) {
+  res.status(HTTP_CODES.SUCCESS.OK).send(quotes[randomQuoteNumber]).end();
+}
+
 server.get("/", getRoot);
 server.get("/tmp/poem", getPoem);
+server.get("/tmp/quote", getQuote);
 
 server.listen(server.get("port"), function () {
   console.log("server running", server.get("port"));
@@ -115,4 +120,40 @@ at det var som om selve stjernene frøs!
 
 Jeg tenkte: Nu er det noe som hender.-
 Vår tid er forbi – Europa brenner!
+
+"Du må ikke sove" av Arnulf Øverland.
+Utgitt 1937.
     </pre>`;
+
+const quotes = [
+  `<pre>But man is not made for defeat. A man can be destroyed but not defeated.
+
+Ernest Hemingway
+    </pre>`,
+  `<pre>When you reach the end of your rope, tie a knot in it and hang on.
+
+Franklin D. Roosevelt
+    </pre>`,
+  `<pre>You cannot shake hands with a clenched fist.
+
+Indira Gandhi
+    </pre>`,
+  `<pre>It is better to be feared than loved, if you cannot be both.
+
+Niccolo Machiavelli
+    </pre>`,
+  `<pre>Learning never exhausts the mind.
+
+    Leonardo da Vinci
+    </pre>`,
+  `<pre>There is no charm equal to tenderness of heart.
+
+Jane Austen
+    </pre>`,
+  `<pre>No act of kindness, no matter how small, is ever wasted.
+
+Aesop
+    </pre>`,
+];
+
+const randomQuoteNumber = Math.floor(Math.random() * quotes.length);
