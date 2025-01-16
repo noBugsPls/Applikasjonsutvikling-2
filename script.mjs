@@ -22,8 +22,8 @@ server.listen(server.get("port"), function () {
   console.log("server running", server.get("port"));
 });
 
-const poem = `
-    Jeg våknet en natt av en underlig drøm
+const poem = `<pre>
+Jeg våknet en natt av en underlig drøm
 det var som en stemme talte til meg
 fjern som en underjordisk strøm-
 og jeg reiste meg opp: Hva er det du vil meg?
@@ -115,4 +115,4 @@ at det var som om selve stjernene frøs!
 
 Jeg tenkte: Nu er det noe som hender.-
 Vår tid er forbi – Europa brenner!
-    `;
+    </pre>`;
