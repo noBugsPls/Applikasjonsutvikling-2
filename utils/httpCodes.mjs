@@ -6,6 +6,7 @@ const HTTP_CODES = {
         OK: 200
     },
     CLIENT_ERROR: {
+        BAD_REQUEST: 400,
         NOT_FOUND: 404
     }
 }
