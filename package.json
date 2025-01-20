@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "express": "^4.21.2"
+  },
+  "scripts": {
+    "start": "node script.mjs",
+    "dev": "nodemon script.mjs"
   }
 }
