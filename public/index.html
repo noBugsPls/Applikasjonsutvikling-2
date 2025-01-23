@@ -36,6 +36,10 @@
             remaining: 52,
           }),
         });
+        if(!response.ok) {
+          alert(`Error: ${response.status} - ${response.statusText}`);
+          return;
+        }
         const data = await response.json();
         console.log("POST:", data);
         deck_id = data.deck_id;
@@ -57,6 +61,12 @@
         const response = await fetch(`http://localhost:8000/temp/deck/${deck_id}`, {
           method: "GET",
         });
+
+        if(!response.ok) {
+          alert(`Error: ${response.status} - ${response.statusText}`);
+          return;
+        }
+
         const data = await response.json();
 
         if (!deckContainer) {
@@ -97,6 +107,11 @@
           method: "PATCH",
         });
 
+        if(!response.ok) {
+          alert(`Error: ${response.status} - ${response.statusText}`);
+          return;
+        }
+
         const data = await response.json();
 
         if (shownDeck) {
@@ -111,6 +126,10 @@
         const response = await fetch(`temp/deck/${deck_id}/card`, {
           method: "GET",
         });
+        if(!response.ok) {
+          alert(`Error: ${response.status} - ${response.statusText}`);
+          return;
+        }
 
         if (!deck_id) {
           alert("No deck created yet. Please create a deck first.");
