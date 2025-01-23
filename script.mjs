@@ -102,12 +102,10 @@ function showDeck(req, res, next) {
         return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Deck not found.");
     }
 
-    // Sjekk om deck.cards er et array
     if (!Array.isArray(deck.cards)) {
         return res.status(HTTP_CODES.CLIENT_ERROR.BAD_REQUEST).send("Deck.cards is not valid.");
     }
 
-    // Bygg en streng som representerer kortstokken
     let deckString = [];
     for (const card of deck.cards) {
         deckString.push(`value: ${card.value}, suit: ${card.suit}`);
@@ -116,9 +114,6 @@ function showDeck(req, res, next) {
     // Send kortstokken som svar
     res.status(HTTP_CODES.SUCCESS.OK).json(deckString);
 }
-
-//http://localhost:8000/temp/shuffle/2
-//http://localhost:8000/temp/deck
 
 //==================================== Routes ====================================
 //------------------------ GET ------------------------
