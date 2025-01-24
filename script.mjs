@@ -40,7 +40,7 @@ function postDeck(req, res, next) {
 
 function createDeck() {
     const suits = [{name: "hearts", symbol: "♥"}, {name: "diamonds", symbol: "♦"}, {name: "clubs", symbol: "♣"}, {name: "spades", symbol: "♠"}];
-    const values = [{value: "1", name: "ace"}, {value: "2", name: "two"}, {value: "3", name: "three"}, {value: "4", name: "four"}, {value: "5", name: "five"}, {value: "6", name: "six"}, {value: "7", name: "seven"}, {value: "8", name: "eight"}, {value: "9", name: "nine"}, {value: "10", name: "ten"}, {value: "11", name: "jack"}, {value: "12", name: "queen"}, {value: "13", name: "king"}];
+    const values = [{value: "1", name: "Ace"}, {value: "2", name: "two"}, {value: "3", name: "three"}, {value: "4", name: "four"}, {value: "5", name: "five"}, {value: "6", name: "six"}, {value: "7", name: "seven"}, {value: "8", name: "eight"}, {value: "9", name: "nine"}, {value: "10", name: "ten"}, {value: "11", name: "Jack"}, {value: "12", name: "Queen"}, {value: "13", name: "King"}];
 
     let deck_id;
 
@@ -54,7 +54,11 @@ function createDeck() {
 
     for(const suit of suits){
         for(const value of values){
+          if(value.value === "1" || value.value === "11" || value.value === "12" || value.value === "13") {
+            cards.push({suit: suit.symbol, value: value.name.charAt(0)});
+          }else{
             cards.push({suit: suit.symbol, value: value.value});
+          }
         }
     }
     return {deck_id, cards, remaining: cards.length};
