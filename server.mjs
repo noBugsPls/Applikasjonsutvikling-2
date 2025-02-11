@@ -6,7 +6,13 @@ import { LOGG_LEVELS } from "./modules/log.mjs";
 import sumRoutes from "./routes/sumRoutes.mjs";
 import poemRoutes from "./routes/poemRoutes.mjs";
 import deckRoutes from "./routes/deckRoutes.mjs";
+import treeRouter from "./routes/treeAPI.mjs";
 import { sessionMiddleware, countVisits} from "./modules/session.mjs";
+
+import treeRouter from "./routes/treeAPI.mjs";
+import questLogRouter from "./routes/questLogAPI.mjs";
+import userRouter from "./routes/userAPI.mjs";
+
 
 const ENABLE_LOGGING = false;
 
@@ -22,9 +28,13 @@ server.use(countVisits);
 server.use(logger);
 server.use(express.static("public"));
 
+server.use("/tree/", treeRouter);
+server.use("/quest", questLogRouter);
+server.use("/user", userRouter)
 server.use("", sumRoutes);
 server.use("", poemRoutes);
 server.use("", deckRoutes);
+server.use("/tree/", treeRouter);
 
 server.get("/visits", (req, res) => {
   res.json({
@@ -44,6 +54,8 @@ server.listen(server.get("port"), function () {
   console.log("server running", server.get("port"));
 });
 
+
+export default server;
 
 
 

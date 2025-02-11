@@ -3,3 +3,4 @@ logs/
 package-lock.json
 package.json
 utils/secret.mjs
+.env
