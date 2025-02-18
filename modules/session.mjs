@@ -1,7 +1,9 @@
 import session from "express-session";
 import FileStoreFactory from "session-file-store";
 import fs from "node:fs/promises";
-import secretMessage from "../utils/secret.mjs";
+
+
+const secretMessage = process.env.SECRET_MESSAGE || "Dette er en hemmelighet!";
 
 const FileStore = FileStoreFactory(session);
 const SESSION_PATH = process.env.SESSION_PATH || "./logs/sessions";
