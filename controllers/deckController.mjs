@@ -27,13 +27,8 @@ function createDeck() {
         {value: "13", name: "King"}
     ];
 
-    let deck_id;
-
-    if(decks.length === 0) {
-      deck_id = 1;
-    }else{
-      deck_id = decks.length;
-    }
+    let deck_id = 1;
+    deck_id = decks.length + 1;
 
     const cards = [];
 
@@ -51,20 +46,21 @@ function createDeck() {
 
 export function createDeckHandler(req, res, next) {
     const newDeck = createDeck();
-    decks[newDeck.deck_id] = newDeck;
-  res.status(HTTP_CODES.SUCCESS.OK).send({deck_id: newDeck.deck_id}).end();
+    decks.push(newDeck);
+  return res.status(HTTP_CODES.SUCCESS.OK).send({deck_id: newDeck.deck_id}).end();
 };
 
 export function getCardHandler(req, res, next) {
-    const deck_id = req.params.deck_id;
-    const deck = decks[deck_id];
+    const deck_id = parseInt(req.params.deck_id);
+    const deck = decks.find(d => d.deck_id === deck_id);
+
 
     if(deck === undefined) {
-        res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Deck not found.").end();
+        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Deck not found.").end();
     }
 
     if(deck.remaining === 0) {
-        res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("No cards remaining.").end();
+        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("No cards remaining.").end();
     }
 
     const randomCardIndex = Math.floor(Math.random() * deck.cards.length);
@@ -73,12 +69,13 @@ export function getCardHandler(req, res, next) {
     const drawnCard = card[0];
     deck.remaining = deck.cards.length;
 
-    res.status(HTTP_CODES.SUCCESS.OK).json({drawnCard, remaining: deck.remaining}).end();
+    return res.status(HTTP_CODES.SUCCESS.OK).json({drawnCard, remaining: deck.remaining}).end();
 };
 
 export function shuffleDeckHandler(req, res, next) {
-    const deck_id = req.params.deck_id;
-    const deck = decks[deck_id];
+    const deck_id = parseInt(req.params.deck_id);
+    const deck = decks.find(d => d.deck_id === deck_id);
+
 
     if(deck === undefined) {
         return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Deck not found.").end();
@@ -86,15 +83,15 @@ export function shuffleDeckHandler(req, res, next) {
 
     deck.cards.sort(() => Math.random() - 0.5);
 
-    res.status(HTTP_CODES.SUCCESS.OK).json({shuffled: "true"}).end();
+    return res.status(HTTP_CODES.SUCCESS.OK).json({shuffled: "true"}).end();
 };
 
 export function showDeckHandler(req, res, next) {
-    const deck_id = req.params.deck_id;
-    const deck = decks[deck_id];
+    const deck_id = parseInt(req.params.deck_id);
+    const deck = decks.find(d => d.deck_id === deck_id);
 
     if (!deck) {
-        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Deck not found.");
+        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Deck not found.").end();
     }
 
     if (!Array.isArray(deck.cards)) {

@@ -25,14 +25,14 @@ server.set("port", port);
 server.use(sessionMiddleware);
 server.use(countVisits);
 server.use(logger);
-server.use(express.static("public"));
 
 server.use("/tree/", treeRouter);
 server.use("/quest", questLogRouter);
 server.use("/user", userRouter)
-server.use("", sumRoutes);
-server.use("", poemRoutes);
-server.use("", deckRoutes);
+server.use("/temp/deck", sumRoutes);
+server.use("/temp/deck", poemRoutes);
+server.use("/temp/deck", deckRoutes);
+server.use(express.static("public"));
 
 server.get("/visits", (req, res) => {
   res.json({
@@ -45,7 +45,7 @@ server.get("/visits", (req, res) => {
 
 //------------------------ 404 error-code ------------------------
 server.use((req, res, next) => {
-    res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Page not found.").end();
+  res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Page not found.").end();
 });
 
 server.listen(server.get("port"), function () {
