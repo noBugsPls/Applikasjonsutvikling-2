@@ -6,7 +6,7 @@ import fs from "node:fs/promises";
 const secretMessage = process.env.SECRET_MESSAGE || "Dette er en hemmelighet!";
 
 const FileStore = FileStoreFactory(session);
-const SESSION_PATH = process.env.SESSION_PATH || "./logs/sessions";
+const SESSION_PATH = "./logs/sessions";
 
 (async () => {
   try {
