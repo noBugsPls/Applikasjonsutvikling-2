@@ -1,6 +1,6 @@
 
 import { console } from "inspector";
-import { Node, Tree, saveTree } from "../data/tree.mjs"
+import { Node, Tree } from "../data/tree.mjs"
 import fs from "fs/promises"
 
 //#region DUMMY data --------------------

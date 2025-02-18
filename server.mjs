@@ -9,7 +9,6 @@ import deckRoutes from "./routes/deckRoutes.mjs";
 import treeRouter from "./routes/treeAPI.mjs";
 import { sessionMiddleware, countVisits} from "./modules/session.mjs";
 
-import treeRouter from "./routes/treeAPI.mjs";
 import questLogRouter from "./routes/questLogAPI.mjs";
 import userRouter from "./routes/userAPI.mjs";
 
@@ -34,7 +33,6 @@ server.use("/user", userRouter)
 server.use("", sumRoutes);
 server.use("", poemRoutes);
 server.use("", deckRoutes);
-server.use("/tree/", treeRouter);
 
 server.get("/visits", (req, res) => {
   res.json({

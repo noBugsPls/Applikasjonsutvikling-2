@@ -81,7 +81,7 @@ export function shuffleDeckHandler(req, res, next) {
     const deck = decks[deck_id];
 
     if(deck === undefined) {
-        res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Deck not found.").end();
+        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Deck not found.").end();
     }
 
     deck.cards.sort(() => Math.random() - 0.5);

@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import secretMessage from "../utils/secret.mjs";
 
 const FileStore = FileStoreFactory(session);
-const SESSION_PATH = "./logs/sessions";
+const SESSION_PATH = process.env.SESSION_PATH || "./logs/sessions";
 
 (async () => {
   try {
