@@ -9,6 +9,8 @@ import deckRoutes from "./routes/deckRoutes.mjs";
 import treeRouter from "./routes/treeAPI.mjs";
 import { sessionMiddleware, countVisits} from "./modules/session.mjs";
 
+import knittingPatternRoutes from "./routes/knittingPatternRoutes.mjs";
+
 import questLogRouter from "./routes/questLogAPI.mjs";
 import userRouter from "./routes/userAPI.mjs";
 
@@ -22,6 +24,7 @@ const logger = log(LOGG_LEVELS.VERBOSE);
 
 server.set("port", port);
 
+server.use(express.json());
 server.use(sessionMiddleware);
 server.use(countVisits);
 server.use(logger);
@@ -32,6 +35,7 @@ server.use("/user", userRouter)
 server.use("/temp/deck", sumRoutes);
 server.use("/temp/deck", poemRoutes);
 server.use("/temp/deck", deckRoutes);
+server.use("", knittingPatternRoutes);
 server.use(express.static("public"));
 
 server.get("/visits", (req, res) => {
