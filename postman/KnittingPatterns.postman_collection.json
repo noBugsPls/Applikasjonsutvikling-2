@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "f2975077-a099-491e-8537-96b489c71a4e",
+		"name": "KnittingPatterns API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41251738"
+	},
+	"item": [
+		{
+			"name": "allPatterns",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/patterns",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"patterns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "aPattern",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "addPattern",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/patterns",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"patterns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePattern",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/patterns/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"patterns",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletePattern",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/patterns/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"patterns",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "default"
+		}
+	]
+}
