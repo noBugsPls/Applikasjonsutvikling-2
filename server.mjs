@@ -3,15 +3,11 @@ import HTTP_CODES from "./utils/httpCodes.mjs";
 import log from "./modules/log.mjs";
 import { LOGG_LEVELS } from "./modules/log.mjs";
 
-import sumRoutes from "./routes/sumRoutes.mjs";
-import poemRoutes from "./routes/poemRoutes.mjs";
-import deckRoutes from "./routes/deckRoutes.mjs";
-import treeRouter from "./routes/treeAPI.mjs";
 import { sessionMiddleware, countVisits} from "./modules/session.mjs";
 
 import knittingPatternRoutes from "./routes/knittingPatternRoutes.mjs";
 
-import questLogRouter from "./routes/questLogAPI.mjs";
+
 import userRouter from "./routes/userAPI.mjs";
 
 
@@ -29,12 +25,7 @@ server.use(sessionMiddleware);
 server.use(countVisits);
 server.use(logger);
 
-server.use("/tree/", treeRouter);
-server.use("/quest", questLogRouter);
 server.use("/user", userRouter)
-server.use("/temp/deck", sumRoutes);
-server.use("/temp/deck", poemRoutes);
-server.use("/temp/deck", deckRoutes);
 server.use("", knittingPatternRoutes);
 server.use(express.static("public"));
 
@@ -44,7 +35,6 @@ server.get("/visits", (req, res) => {
     path_visits: req.session.visits.paths,
   });
 });
-
 
 
 //------------------------ 404 error-code ------------------------
