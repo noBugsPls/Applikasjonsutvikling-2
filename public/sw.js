@@ -1,4 +1,4 @@
-const cacheID= "KnittingPatternsV1";
+const cacheID= "KnittingPatternsV3";
 const contentToCache = [
     "/index.html",
     "/app.js",
@@ -6,6 +6,7 @@ const contentToCache = [
     "/icons/knitting_big.png",
     "/css/style.css",
 ]
+
 
 self.addEventListener('install', event => {
     console.log('[Service Worker] Install');
@@ -28,9 +29,10 @@ self.addEventListener('fetch', event => {
         console.log(`[Service Worker] Fetching resource: ${event.request.url}`);
         if (r) { return r };
         const response = await fetch(event.request);
-        const cache = await caches.open(cacheName);
+        const cache = await caches.open(cacheID);
         console.log(`[Service Worker] Caching new resource: ${event.request.url}`);
         cache.put(event.request, response.clone());
         return response;
     })());
 });
+
