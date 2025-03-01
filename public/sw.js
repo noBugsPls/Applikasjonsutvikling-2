@@ -1,4 +1,4 @@
-const cacheID= "KnittingPatternsV0";
+const cacheID= "KnittingPatternsV2";
 const contentToCache = [
     "/index.html",
     "/app.js",
@@ -38,14 +38,18 @@ self.addEventListener('fetch', event => {
 
 self.addEventListener('activate', event => {
     console.log('[Service Worker] Activate');
+
     event.waitUntil((async () => {
         const cacheNames = await caches.keys();
         const cachesToDelete = cacheNames.filter(cacheName => cacheName !== cacheID);
+
         await Promise.all(cachesToDelete.map(cacheName => {
-            if (cacheName !== cacheID) {
                 console.log(`[Service Worker] Deleting cache: ${cacheName}`);
                 return caches.delete(cacheName);
-            }
         }));
+
+        console.log(`[Service Worker] Keeping cache: ${cacheID}`);
+
+        await self.clients.claim();
     })());
 });
