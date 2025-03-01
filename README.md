@@ -8,3 +8,7 @@ Funnet en datastruktur som er passende til strikkeoppskrifter og la deretter inn
 Her er url til PROD versjon av applikasjonen: <br>
 https://applikasjonsutvikling-2.onrender.com
 
+Lisens for ikoner:
+
+Color Combo
+ID for brukt ikon: #7435438
