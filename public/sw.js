@@ -1,4 +1,4 @@
-const cacheID= "KnittingPatternsV2";
+const cacheID= "KnittingPatternsV1";
 const contentToCache = [
     "/index.html",
     "/app.js",
@@ -15,6 +15,8 @@ self.addEventListener('install', event => {
         console.log('[Service Worker] Caching all: app shell and content');
         await cache.addAll(contentToCache);
     })());
+
+    self.skipWaiting();
 });
 
 self.addEventListener('fetch', event => {

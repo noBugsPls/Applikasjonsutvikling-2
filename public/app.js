@@ -1,7 +1,7 @@
 
-if("serviceWorker" in navigator) {
+ if("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js");
-}
+} 
 
 import aboutViewHTML from './views/aboutView.mjs';
 import patternsViewHTML from './views/patternsView.mjs';
