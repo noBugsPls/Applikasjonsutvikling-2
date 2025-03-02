@@ -27,3 +27,29 @@ document.querySelectorAll("nav").forEach((link) => {
 });
 
 navigate("home");
+
+let deferredEvent;
+let installButton = document.getElementById("installButton");
+
+if(!deferredEvent) {
+    installButton.style.display = 'none';
+}
+
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  deferredEvent = event;
+  if(deferredEvent) {
+    installButton.style.display = 'block';
+  }else{
+    installButton.style.display = 'none';
+  }
+});
+
+installButton.addEventListener('click', () => {
+    console.log('installButton clicked');
+  if(deferredEvent) {
+    deferredEvent.prompt();
+  }else{
+    installButton.style.display = 'none';
+  }
+});
