@@ -1,7 +1,13 @@
 
-const patternsViewHTML = `
+const patternsViewHTML =  `
 <h1>Knitting Patterns</h1>
-<p>No patterns yet.</p>
+<div id="patternsContainer">
+</div>
+
 `;
+
+
+
+
 
 export default patternsViewHTML;
