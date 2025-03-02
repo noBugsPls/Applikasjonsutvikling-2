@@ -5,6 +5,7 @@ const contentToCache = [
   "/icons/knitting_small.png",
   "/icons/knitting_big.png",
   "/css/style.css",
+  "/offline.html",
 ];
 
 self.addEventListener("install", (event) => {
@@ -29,14 +30,19 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(
     (async () => {
-      const r = await caches.match(event.request);
-        console.log(`[Service Worker] Fetching resource: ${event.request.url}`);
-        if (r) { return r };
-            const response = await fetch(event.request);
-            const cache = await caches.open(cacheID);
-            console.log(`[Service Worker] Caching new resource: ${event.request.url}`);
-            cache.put(event.request, response.clone());
-            return response; 
+            const r = await caches.match(event.request);
+            console.log(`[Service Worker] Fetching resource: ${event.request.url}`);
+            if (r) { return r };
+                const response = await fetch(event.request);
+                const cache = await caches.open(cacheID);
+                console.log(`[Service Worker] Caching new resource: ${event.request.url}`);
+                cache.put(event.request, response.clone());
+                
+                if(!response.ok) {
+                    return caches.match("/offline.html");
+                }
+
+                return response;
     })()
   );
 });
@@ -62,3 +68,4 @@ self.addEventListener("activate", (event) => {
     })()
   );
 });
+
