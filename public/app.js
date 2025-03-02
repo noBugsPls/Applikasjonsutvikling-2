@@ -6,11 +6,13 @@ if ("serviceWorker" in navigator) {
 import aboutViewHTML from "./views/aboutView.mjs";
 import patternsViewHTML from "./views/patternsView.mjs";
 import homeViewHTML from "./views/homeView.mjs";
+import licenseViewHTML from "./views/licenseView.mjs";
 
 const routes = {
   home: homeViewHTML,
   patterns: patternsViewHTML,
   about: aboutViewHTML,
+  license: licenseViewHTML,
 };
 
 async function navigate(route) {
