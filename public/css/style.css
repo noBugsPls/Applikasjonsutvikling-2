@@ -140,6 +140,14 @@ button {
     transition: background 0.3s ease;
 }
 
+nav {
+    pointer-events: none;
+}
+
+nav > a {
+    pointer-events: all;
+}
+
 button:hover {
     background: #E79796;
 }
