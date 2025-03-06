@@ -20,14 +20,14 @@ const knittingPatterns = [
       },
     ],
     instructions: [
-      { part: "neckline", description: "Legg opp 81 masker og strikk vrangbord i 5 cm." },
+      { part: "Hals", description: "Legg opp 81 masker og strikk vrangbord i 5 cm." },
       {
-        part: "body",
+        part: "Bolen",
         description:
           "Strikk glattstrikk til arbeidet måler 40 cm. Sett av 20 masker til ermer på hver side. Strikk til arbeidet måler 60 cm og begynn på flette mønster. Flettene strikkes over 12 masker. Gjenta flettemønsteret 5 ganger. Strikk til arbeidet måler 70 cm og fell av.",
       },
       {
-        part: "sleeves",
+        part: "Armer",
         description:
           "Ta opp de 20 maskene på hver side og strikk ermer i glattstrikk til ermet måler 20 cm. Fell av og fest alle tråder.",
       },
