@@ -1,14 +1,11 @@
 import express from "express";
 import HTTP_CODES from "./utils/httpCodes.mjs";
-import log from "./modules/log.mjs";
-import { LOGG_LEVELS } from "./modules/log.mjs";
+import log from "./middleware/log.mjs";
+import { LOGG_LEVELS } from "./middleware/log.mjs";
 
-import { sessionMiddleware, countVisits} from "./modules/session.mjs";
+import { sessionMiddleware, countVisits} from "./middleware/session.mjs";
 
 import knittingPatternRoutes from "./routes/knittingPatternRoutes.mjs";
-
-
-import userRouter from "./routes/userAPI.mjs";
 
 
 const ENABLE_LOGGING = false;
@@ -25,7 +22,6 @@ server.use(sessionMiddleware);
 server.use(countVisits);
 server.use(logger);
 
-server.use("/user", userRouter)
 server.use("", knittingPatternRoutes);
 server.use(express.static("public"));
 
