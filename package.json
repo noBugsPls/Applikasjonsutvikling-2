@@ -1,14 +1,14 @@
 {
   "dependencies": {
     "express": "4.21.2",
-    "express-session": "^1.18.1",
-    "session-file-store": "^1.5.0"
+    "express-session": "1.18.1",
+    "pg": "8.13.3",
+    "session-file-store": "1.5.0"
   },
   "scripts": {
-    "start": "node server.mjs",
+    "start": "node --env-file=.env server.mjs",
     "local": "node --env-file=.env init/init.mjs",
-    "dev": "nodemon server.mjs"
+    "dev": "nodemon --env-file=.env server.mjs"
   },
   "type": "module"
 }
-
