@@ -1,10 +1,27 @@
-import knittingPatterns from '../data/knittingPatternsDatastructure.mjs';
+import knittingPatterns from "../data/knittingPatternsDatastructure.mjs";
+import { create, update, read, purge } from "../data/database.js";
 
-export const getAllPatterns = (req, res) => {
-  res.json(knittingPatterns);
+ export const getAllPatterns = async function (req, res) {
+  try{
+    const result = await read("SELECT * FROM public.patterns");
+
+    console.log("result", result);
+
+    if(!result){
+      throw new Error("No patterns found");
+    }
+
+    const patterns = result.rows;
+    console.log("patterns", patterns);
+
+    return res.status(200).json(patterns || []);
+  }catch(error){
+    console.error(error);
+    res.status(500).send({error: "Noe gikk galt"});
+  }
 };
 
-export const getPatternById = (req, res) => {
+ export const getPatternById = (req, res) => {
     const id = parseInt(req.params.id);
     const pattern = knittingPatterns.find(pattern => pattern.id === id);
     if (pattern) {
@@ -15,10 +32,12 @@ export const getPatternById = (req, res) => {
 };
 
 export const createPattern = (req, res) => {
+
     const newPattern = {
-        id: knittingPatterns.length + 1,
         ...req.body,
     }
+
+    console.log("pattern", newPattern); 
 
     knittingPatterns.push(newPattern);
     res.status(201).json(newPattern);
@@ -46,8 +65,8 @@ export const deletePattern = (req, res) => {
     
     if(index !== -1) {
         knittingPatterns.splice(index, 1);
-        res.status(204).send();
     } else {
         res.status(404).send(`Oppskrift med id ${id} ble ikke funnet.`);
     };
-};
+}; 
+
