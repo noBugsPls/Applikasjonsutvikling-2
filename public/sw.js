@@ -27,6 +27,11 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  if(event.request.method !== "GET") {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
   event.respondWith(
     (async () => {
       const r = await caches.match(event.request);
