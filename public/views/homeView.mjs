@@ -1,8 +1,8 @@
 const homeViewHTML = `
 <h1>Knitting Patterns</h1>
-<p>A place to keep all of your beloved knitting patterns.</p>
-<button id="newPattern">Create new pattern</button>
-<button id="showPatterns">Show patterns</button>
+<p>Et sted hvor du kan oppbevare alle strikkeoppskriftene dine!</p>
+<button id="newPattern">Legg til ny oppskrift</button>
+<button id="showPatterns">Vis oppskrifter</button>
 `;
 
 export default homeViewHTML;
