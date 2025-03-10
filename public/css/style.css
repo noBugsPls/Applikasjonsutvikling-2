@@ -17,7 +17,7 @@ body {
 }
 
 nav {
-    background-color: #FFB284;
+    background-color: #de9d9c;
     width: 100%;
     max-width: 800px;
     padding: 10px 0;
@@ -28,7 +28,7 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: black;
     text-decoration: none;
     font-size: 18px;
     padding: 10px 15px;
@@ -86,8 +86,8 @@ main {
 }
 
 #newPatternForm button {
-    background: #FFB284;
-    color: white;
+    background: #F5CEC7;
+    color: black;
     border: none;
     padding: 10px 15px;
     font-size: 16px;
@@ -97,7 +97,7 @@ main {
 }
 
 #newPatternForm button:hover {
-    background: #FFA573;
+    background: #E79796;
 }
 
 
@@ -129,9 +129,19 @@ img {
     text-align: right;
 }
 
+ul {
+    margin-left: 20px;
+}
+
+hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #a1a1a1;
+}
+
 button {
     background: #F5CEC7;
-    color: white;
+    color: black;
     border: none;
     padding: 10px 15px;
     font-size: 16px;
