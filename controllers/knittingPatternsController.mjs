@@ -21,7 +21,6 @@ export const getAllPatterns = async (req, res) => {
   }
 };
 
-//==================== HOLDER PÅ MED =========================
 export const createPattern = async (req, res) => {
   try {
     const result = await create(
@@ -52,6 +51,22 @@ export const createPattern = async (req, res) => {
   }
 };
 
+export const deletePattern = async (req, res) => {
+  try {
+    const result = await purge("DELETE FROM public.patterns WHERE id = $1", req.params.id);
+    console.log("result", result);
+
+    if (!result) {
+      throw new Error("No patterns deleted");
+    }
+
+    return res.status(200).json(result.rows[0] || req.body);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Noe gikk galt med å slette oppskrift." });
+  }
+};
+
 //-------------------- IKKE FERDIG --------------------
 export const getPatternById = (req, res) => {
   const id = parseInt(req.params.id);
@@ -75,18 +90,6 @@ export const updatePattern = (req, res) => {
       id,
     };
     res.json(knittingPatterns[index]);
-  } else {
-    res.status(404).send(`Oppskrift med id ${id} ble ikke funnet.`);
-  }
-};
-
-//-------------------- IKKE FERDIG --------------------
-export const deletePattern = (req, res) => {
-  const id = parseInt(req.params.id);
-  const index = knittingPatterns.findIndex((pattern) => pattern.id === id);
-
-  if (index !== -1) {
-    knittingPatterns.splice(index, 1);
   } else {
     res.status(404).send(`Oppskrift med id ${id} ble ikke funnet.`);
   }

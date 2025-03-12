@@ -85,21 +85,16 @@ document.addEventListener("DOMContentLoaded", requestNotificationPermission);
 //-------------------- Mønstre --------------------
 const main = document.getElementById("app");
 
- export async function showPatterns() {
+export async function showPatterns() {
   const response = await fetch("/patterns");
   console.log("response", response);
-  if(!response.ok) {
+  if (!response.ok) {
     console.error("Error fetching patterns", response);
     return;
   }
 
-  const isHTML = response.headers.get("content-type").includes("text/html");
-  if(isHTML) {
-
-  }
-
   const patterns = await response.json();
-  
+
   console.log("patterns", patterns);
   main.innerHTML = `
     <h2>Strikkeoppskrifter</h2>
@@ -113,32 +108,98 @@ const main = document.getElementById("app");
             <p><strong><i>${pattern.description}</i></strong></p>
             <p><strong>Vanskelighetsgrad: </strong>${pattern.difficulty}</p>
             <p><strong>Kategori:</strong> ${pattern.category}</p>
-            ${pattern.sizes.some(size => size.trim() !=="") ? `<p><strong>Størrelser:</strong> ${pattern.sizes.join(", ")}</p>` : ""}
-            ${pattern.chest_width_in_cm === 0 ? `<p><strong>Brystvidde i cm:</strong> ${pattern.chest_width_in_cm}</p>` : ""}
+            ${
+              pattern.sizes.some((size) => size.trim() !== "")
+                ? `<p><strong>Størrelser:</strong> ${pattern.sizes.join(", ")}</p>`
+                : ""
+            }
+            ${
+              pattern.chest_width_in_cm === 0
+                ? `<p><strong>Brystvidde i cm:</strong> ${pattern.chest_width_in_cm}</p>`
+                : ""
+            }
             <p><strong>Strikkefasthet: </strong>${pattern.gauge.stitches} masker per 10 cm.</p>
-            ${pattern.materials.some(material => (material.amount && material.amount.trim !== "") || (material.name && material.name.trim !== "") || (material.type && material.type.trim !== "")
-            ) ? `<p><strong>Materialer:</strong></p>` : ""}
-            ${pattern.materials !== "" && pattern.materials.length 
-            ? `
+            ${
+              pattern.materials.some(
+                (material) =>
+                  (material.amount && material.amount.trim !== "") ||
+                  (material.name && material.name.trim !== "") ||
+                  (material.type && material.type.trim !== "")
+              )
+                ? `<p><strong>Materialer:</strong></p>`
+                : ""
+            }
+            ${
+              pattern.materials !== "" && pattern.materials.length
+                ? `
                <ul>
-                 ${pattern.materials.map(m => m.type || m.name ? `<li><i>${m.type}: </i>${m.name} ${m.amount || m.size ? `(${m.amount || m.size})` : ""}</li>` : "").join("")}
-               </ul>` 
-            : ""}
-            ${pattern.instructions.some(instructions => ((instructions.description && instructions.description.trim() !== "") || (instructions.part && instructions.part.trim() !== ""))) ? `<p><strong>Instruksjoner:</strong></p>` : ""}
-             ${pattern.instructions && pattern.instructions.length
-            ? `
+                 ${pattern.materials
+                   .map((m) =>
+                     m.type || m.name
+                       ? `<li><i>${m.type}: </i>${m.name} ${m.amount || m.size ? `(${m.amount || m.size})` : ""}</li>`
+                       : ""
+                   )
+                   .join("")}
+               </ul>`
+                : ""
+            }
+            ${
+              pattern.instructions.some(
+                (instructions) =>
+                  (instructions.description && instructions.description.trim() !== "") ||
+                  (instructions.part && instructions.part.trim() !== "")
+              )
+                ? `<p><strong>Instruksjoner:</strong></p>`
+                : ""
+            }
+             ${
+               pattern.instructions && pattern.instructions.length
+                 ? `
                <ul>
-                 ${pattern.instructions.map(instructions => instructions.part || instructions.description ? `<li><i>${instructions.part}:</i> ${instructions.description}</li>` : "").join("")}
-               </ul>` 
-            : ""}
+                 ${pattern.instructions
+                   .map((instructions) =>
+                     instructions.part || instructions.description
+                       ? `<li><i>${instructions.part}:</i> ${instructions.description}</li>`
+                       : ""
+                   )
+                   .join("")}
+               </ul>`
+                 : ""
+             }
             ${pattern.image ? `<img src="${pattern.image}" alt="${pattern.name}">` : ""}
             <p><i>Forfatter: ${pattern.author}</i></p>
         </div>
-        <button id="updatePattern">Endre oppskrift</button>
-        <button id="deletePattern">Slett oppskrift</button>
+        <button class="updatePattern" data-id="${pattern.id}">Endre oppskrift</button>
+        <button class="deletePattern" data-id="${pattern.id}">Slett oppskrift</button>
         `
           )
           .join("")}
     </div>
     `;
-} 
+
+  const deleteButtons = document.querySelectorAll(".deletePattern");
+  console.log("deleteButtons", deleteButtons);
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      const id = event.target.dataset.id;
+      console.log("Deletebutton id: ", id);
+      await deletePattern(id);
+    });
+  });
+}
+
+async function deletePattern(id) {
+  try {
+    const response = await fetch(`/patterns/${id}`, {
+      method: "DELETE",
+    });
+    console.log("response", response);
+    if (!response.ok) {
+      console.error("Error deleting pattern", response.status);
+      return;
+    }
+    showPatterns();
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+};
