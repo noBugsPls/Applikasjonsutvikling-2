@@ -85,14 +85,21 @@ document.addEventListener("DOMContentLoaded", requestNotificationPermission);
 //-------------------- Mønstre --------------------
 const main = document.getElementById("app");
 
-export async function showPatterns() {
+ export async function showPatterns() {
   const response = await fetch("/patterns");
   console.log("response", response);
   if(!response.ok) {
     console.error("Error fetching patterns", response);
     return;
   }
+
+  const isHTML = response.headers.get("content-type").includes("text/html");
+  if(isHTML) {
+
+  }
+
   const patterns = await response.json();
+  
   console.log("patterns", patterns);
   main.innerHTML = `
     <h2>Strikkeoppskrifter</h2>
@@ -127,10 +134,11 @@ export async function showPatterns() {
             ${pattern.image ? `<img src="${pattern.image}" alt="${pattern.name}">` : ""}
             <p><i>Forfatter: ${pattern.author}</i></p>
         </div>
+        <button id="updatePattern">Endre oppskrift</button>
+        <button id="deletePattern">Slett oppskrift</button>
         `
           )
           .join("")}
     </div>
     `;
-    
-}
+} 
