@@ -6,6 +6,12 @@ export const getAllPatterns = async (req, res) => {
   return patterns ? patterns.rows : [];
 };
 
+export const getPatternById = async (id) => {
+  const sql = `SELECT * FROM public.patterns WHERE id = $1`;
+  const pattern = await read(sql, id);
+  return pattern ? pattern.rows[0] : {};
+};
+
 export const createPattern = async (data) => {
   const sql = `INSERT INTO public.patterns (name, description, difficulty, category, sizes, chest_width_in_cm, gauge, materials, instructions, image, author) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     RETURNING *`;
@@ -22,11 +28,8 @@ export const createPattern = async (data) => {
     data.image,
     data.author,
   ];
-  console.log("Request body:", data);
-console.log("Values som sendes:", ...values);
-
   const newPattern = await create(sql, ...values);
-  console.log("newPattern in patternModel", newPattern);
+
   return newPattern ? newPattern.rows[0] : {};
 };
 
@@ -39,22 +42,34 @@ console.log("Values som sendes:", ...values);
 }; 
 
 
-export const updatePattern = async (req, res) => {
-  const sql = `UPDATE public.patterns SET name = $1, description = $2, difficulty = $3, category = $4, sizes = $5, chest_width_in_cm = $6, gauge = $7, materials = $8, instructions = $9, image = $10, author = $11 WHERE id = $12`;
-  const values = [
-    req.body.name,
-    req.body.description,
-    req.body.difficulty,
-    req.body.category,
-    JSON.stringify(req.body.sizes),
-    JSON.stringify(req.body.chestWidthInCm),
-    JSON.stringify(req.body.gauge),
-    JSON.stringify(req.body.materials),
-    JSON.stringify(req.body.instructions),
-    req.body.image,
-    req.body.author,
-    req.params.id,
-  ];
-  const updatePattern = await update(sql, values);
-  return updatePattern ? updatePattern.rows[0] : {};
+export const updatePattern = async (id, data) => {
+  try {
+    const keys = Object.keys(data);
+    if (keys.length === 0) {
+      throw new Error("Ingen data å oppdatere");
+    }
+    //Kode skrevet av chatGPT-----Start-------------
+    let setClause = [];
+    let values = [];
+    let index = 1;
+    
+    keys.forEach((key) => {
+      let value = data[key];
+      if (typeof value === "object") {
+        value = JSON.stringify(value);
+      }
+      setClause.push(`${key} = $${index}`);
+      values.push(value);
+      index++;
+    });
+    values.push(id);
+    const sql = `UPDATE public.patterns SET ${setClause.join(", ")} WHERE id = $${values.length} RETURNING *`;
+    //Kode skrevet av chatGPT-----Slutt-----------------
+    
+    const updateResult = await update(sql, ...values);
+    return updateResult ? updateResult.rows[0] : {};
+  } catch (error) {
+    console.error("Error updating pattern in model:", error);
+    throw error;
+  }
 };
