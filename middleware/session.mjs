@@ -36,8 +36,15 @@ const countVisits = (req, res, next) => {
   }
 
   req.session.visits.paths[path] = (req.session.visits.paths[path] || 0) + 1;
-  
+
+   res.locals.visits = {
+    total_visits: req.session.visits.total,
+    path_visits: req.session.visits.paths,
+  }; 
   next();
 }
+
+
+
 
 export {sessionMiddleware, countVisits};
