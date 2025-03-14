@@ -33,14 +33,12 @@ export const createPattern = async (data) => {
   return newPattern ? newPattern.rows[0] : {};
 };
 
- export const deletePattern = async (id) => {
+export const deletePattern = async (id) => {
   const sql = `DELETE FROM public.patterns WHERE id = $1
   RETURNING *`;
-    const deletePattern = await purge(sql, id);
-    console.log("deletePattern", deletePattern);
-    return deletePattern ? deletePattern.rows[0] : {};
-}; 
-
+  const deletePattern = await purge(sql, id);
+  return deletePattern ? deletePattern.rows[0] : {};
+};
 
 export const updatePattern = async (id, data) => {
   try {
@@ -52,7 +50,7 @@ export const updatePattern = async (id, data) => {
     let setClause = [];
     let values = [];
     let index = 1;
-    
+
     keys.forEach((key) => {
       let value = data[key];
       if (typeof value === "object") {
@@ -65,7 +63,7 @@ export const updatePattern = async (id, data) => {
     values.push(id);
     const sql = `UPDATE public.patterns SET ${setClause.join(", ")} WHERE id = $${values.length} RETURNING *`;
     //Kode skrevet av chatGPT-----Slutt-----------------
-    
+
     const updateResult = await update(sql, ...values);
     return updateResult ? updateResult.rows[0] : {};
   } catch (error) {

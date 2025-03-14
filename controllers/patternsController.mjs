@@ -29,7 +29,6 @@ export const getPatternById = async (req, res) => {
 export const createPattern = async (req, res) => {
   try {
     const newPattern = await patternsModel.createPattern(req.body);
-    console.log("newPattern i patternController", newPattern);
     if(!newPattern) {
       res.status(HTTP_CODES.CLIENT_ERROR.BAD_REQUEST).json({ error: "Error creating pattern" });
     }
@@ -43,7 +42,6 @@ export const createPattern = async (req, res) => {
 export const deletePattern = async (req, res) => {
   try {
     const deletePattern = await patternsModel.deletePattern(req.params.id);
-    console.log("deletePattern", deletePattern);
     res.status(HTTP_CODES.SUCCESS.NO_CONTENT).json(deletePattern);
   } catch (error) {
     res.status(HTTP_CODES.SERVER_ERROR.INTERNAL_SERVER_ERROR).json({ error: "Error deleting pattern", details: error.message });

@@ -1,6 +1,6 @@
 "use strict";
 
- import { createPattern } from "../apiService.mjs";
+import { createPattern } from "../apiService.mjs";
 
 //============= HTML =============
 const addPatternViewHTML = `
@@ -75,21 +75,19 @@ export class AddPatternView extends HTMLElement {
   }
 
   startEventListener() {
-    if(this.addMaterialButton){
+    if (this.addMaterialButton) {
       this.addMaterialButton.addEventListener("click", () => {
-        console.log("addMaterialButton clicked");
         this.addMaterial();
       });
-    };
+    }
 
-    if(this.addInstructionButton){
+    if (this.addInstructionButton) {
       this.addInstructionButton.addEventListener("click", () => {
-        console.log("addInstructionButton clicked");
         this.addInstruction();
       });
-    };
+    }
 
-    if(this.form){
+    if (this.form) {
       this.form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
@@ -123,7 +121,7 @@ export class AddPatternView extends HTMLElement {
             .getElementById("sizes")
             .value.split(",")
             .map((size) => size.trim()),
-            chest_width_in_cm: this.shadowRoot.getElementById("chestWidthInCm").value.split(",").map(Number),
+          chest_width_in_cm: this.shadowRoot.getElementById("chestWidthInCm").value.split(",").map(Number),
           gauge: {
             stitches: parseInt(this.shadowRoot.getElementById("gaugeStitches").value, 10),
             lengthInCm: 10,
@@ -134,10 +132,7 @@ export class AddPatternView extends HTMLElement {
           author: this.shadowRoot.getElementById("author").value,
         };
 
-        console.log("newPatternData", newPatternData);
-
         const addedPattern = await createPattern(newPatternData);
-        console.log("addedPattern", addedPattern);
         const submitButton = this.shadowRoot.getElementById("savePattern");
         setTimeout(() => {
           submitButton.innerText = "Oppskrift lagret!";
@@ -146,9 +141,7 @@ export class AddPatternView extends HTMLElement {
           }, 3000);
         }, 100);
       });
-
-      console.log("addPatternView.js loaded");
-    }else{
+    } else {
       console.error("Form not found");
     }
   }

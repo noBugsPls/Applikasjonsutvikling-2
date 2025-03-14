@@ -111,21 +111,18 @@ export class PatternsView extends HTMLElement {
     const updateButtons = this.shadowRoot.querySelectorAll(".updatePattern");
     updateButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        console.log("Endre oppskrift-knapp trykket på", button.dataset.id);
         const updatePatternEvent = new CustomEvent("updatePattern", {
           detail: { id: button.dataset.id },
           bubbles: true,
           composed: true,
         });
         const dispatched = this.dispatchEvent(updatePatternEvent);
-        console.log("Event dispatched:", dispatched);
       });
     });
 
     const deleteButtons = this.shadowRoot.querySelectorAll(".deletePattern");
     deleteButtons.forEach((button) => {
       button.addEventListener("click", async () => {
-        console.log("Slett oppskrift-knapp trykket på", button.dataset.id);
         const id = parseInt(button.dataset.id, 10);
 
         const confirmWindow = confirm("Er du sikker på at du vil slette denne oppskriften?");

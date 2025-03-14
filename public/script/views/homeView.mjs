@@ -22,23 +22,19 @@ export class HomeView extends HTMLElement {
 
   update(data) {
     this.newPatternButton.addEventListener("click", () => {
-      console.log("Legg til ny oppskrift-knapp trykket på");
       const addPatternEvent = new CustomEvent("addNewPattern", {
         bubbles: true,
         composed: true,
       });
       const dispatched = this.dispatchEvent(addPatternEvent);
-      console.log("Event dispatched:", dispatched);
     });
 
     this.showPatternsButton.addEventListener("click", () => {
-      console.log("Vis oppskrifter");
       const showPatternEvent = new CustomEvent("showPatterns", {
         bubbles: true,
         composed: true,
       });
       const dispatched = this.dispatchEvent(showPatternEvent);
-      console.log("Event dispatched:", dispatched);
     });
   }
 }

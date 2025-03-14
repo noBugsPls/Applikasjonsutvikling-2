@@ -18,15 +18,12 @@ async function runQuery(query, ...values) {
         throw new Error("No records created");
       }
     }
-
-    console.log("Connected to database");
     return result;
   } catch (error) {
     console.error("Connection error", error);
     return null;
   } finally {
     await client.end();
-    console.log("Client disconnected");
   }
 }
 
