@@ -14,6 +14,18 @@ export const getAllPatterns = async (req, res) => {
   }
 };
 
+export const getPatternById = async (req, res) => {
+  try {
+    const pattern = await patternsModel.getPatternById(req.params.id);
+    if (!pattern) {
+      return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("Pattern not found.");
+    }
+    res.status(HTTP_CODES.SUCCESS.OK).json(pattern);
+  } catch (error) {
+    res.status(HTTP_CODES.SERVER_ERROR.INTERNAL_SERVER_ERROR).send("Error fetching pattern.", error);
+  }
+};
+
 export const createPattern = async (req, res) => {
   try {
     const newPattern = await patternsModel.createPattern(req.body);
