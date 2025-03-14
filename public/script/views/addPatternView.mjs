@@ -138,6 +138,12 @@ export class AddPatternView extends HTMLElement {
 
         const addedPattern = await createPattern(newPatternData);
         console.log("addedPattern", addedPattern);
+        const submitButton = this.shadowRoot.getElementById("savePattern");
+        const originText = submitButton.innerText;
+        const clickText = submitButton.innerText = "Oppskrift lagret!";
+        setTimeout(() => {
+          clickText= originText;
+        }, 3000);
       });
 
       console.log("addPatternView.js loaded");
