@@ -1,9 +1,9 @@
 const cacheID = "KnittingPatternsV1";
 const contentToCache = [
   "/index.html",
-  "/app.js",
   "/icons/knitting_small.png",
   "/icons/knitting_big.png",
+  "/images/Strikkemonster_Logo.png",
   "/css/style.css",
   "/offline.html",
 ];
@@ -27,10 +27,20 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  if(event.request.method !== "GET") {
+  if (event.request.method !== "GET") {
     event.respondWith(fetch(event.request));
     return;
   }
+
+  const url = new URL(event.request.url);
+  if(url.pathname === "/patterns"){
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.match("/offline.html");
+  }));
+  return;
+}
+
 
   event.respondWith(
     (async () => {
@@ -71,6 +81,7 @@ self.addEventListener("activate", (event) => {
       console.log(`[Service Worker] Keeping cache: ${cacheID}`);
 
       await self.clients.claim();
+      console.log("[Service Worker] Claimed clients");
     })()
   );
 });

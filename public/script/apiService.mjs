@@ -2,7 +2,7 @@
 
 export async function getPatterns() {
   try {
-    const response = await fetch("/patterns");
+    const response = await fetch("/patterns", { cache: "no-store" });
     if (!response.ok) throw new Error("Error fetching patterns");
     return await response.json();
   } catch (error) {

@@ -132,12 +132,13 @@ export class PatternsView extends HTMLElement {
         if (!confirmWindow) {
           return;
         }
-        try{
-            await deletePattern(id);
-            this.loadPatterns();
-        }catch(error){
-            console.error(error);
-      }
+        try {
+          await deletePattern(id);
+          const updatedPatterns = await getPatterns();
+          this.update(updatedPatterns);
+        } catch (error) {
+          console.error(error);
+        }
       });
     });
   }
