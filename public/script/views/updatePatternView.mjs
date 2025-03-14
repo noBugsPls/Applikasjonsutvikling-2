@@ -58,7 +58,7 @@ const updatePatternViewHTML = `
     <label for="author">Forfatter:</label>
     <input type="text" id="author">
 
-    <button type="submit" id="savePattern">Lagre oppskrift</button>
+    <button type="submit" id="updatePattern">Lagre oppskrift</button>
 </form>
 `;
 
@@ -76,11 +76,8 @@ export class UpdatePatternView extends HTMLElement {
   }
 
   async getCorrectId(id) {
-    console.log("getCorrectId", id);
     this.patternId = await getPatternById(id);
-    console.log("this.patternId", this.patternId);
     await this.fillInForm(this.patternId);
-    console.log("getPatternById", id);
   }
 
   async fillInForm(pattern) {
@@ -93,27 +90,26 @@ export class UpdatePatternView extends HTMLElement {
     if (pattern.gauge && pattern.gauge.stitches) {
       this.shadowRoot.getElementById("gaugeStitches").value = pattern.gauge.stitches;
     } else {
-      this.shadowRoot.getElementById("gaugeStitches").value = "";}
+      this.shadowRoot.getElementById("gaugeStitches").value = "";
+    }
     this.shadowRoot.getElementById("image").value = pattern.image || "";
     this.shadowRoot.getElementById("author").value = pattern.author || "";
-  };
+  }
 
   startEventListener() {
-    if(this.addMaterialButton){
+    if (this.addMaterialButton) {
       this.addMaterialButton.addEventListener("click", () => {
-        console.log("addMaterialButton clicked");
         this.addMaterial();
       });
-    };
+    }
 
-    if(this.addInstructionButton){
+    if (this.addInstructionButton) {
       this.addInstructionButton.addEventListener("click", () => {
-        console.log("addInstructionButton clicked");
         this.addInstruction();
       });
-    };
+    }
 
-    if(this.form){
+    if (this.form) {
       this.form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
@@ -147,7 +143,7 @@ export class UpdatePatternView extends HTMLElement {
             .getElementById("sizes")
             .value.split(",")
             .map((size) => size.trim()),
-            chest_width_in_cm: this.shadowRoot.getElementById("chestWidthInCm").value.split(",").map(Number),
+          chest_width_in_cm: this.shadowRoot.getElementById("chestWidthInCm").value.split(",").map(Number),
           gauge: {
             stitches: parseInt(this.shadowRoot.getElementById("gaugeStitches").value, 10),
             lengthInCm: 10,
@@ -159,10 +155,13 @@ export class UpdatePatternView extends HTMLElement {
         };
 
         const patternId = this.patternId;
-        console.log("patternId", patternId);
 
         const updatedPattern = await updatePattern(patternId, updatedPatternData);
-        console.log("updatedPattern", updatedPattern);
+
+        const updateEvent = new CustomEvent("patternUpdated", {
+          bubbles: true,
+        });
+        this.dispatchEvent(updateEvent);
       });
     }
   }
@@ -187,11 +186,6 @@ export class UpdatePatternView extends HTMLElement {
       newInstruction.querySelectorAll("input, textarea").forEach((input) => (input.value = ""));
       instructionsContainer.appendChild(newInstruction);
     }
-  }
-
-  async show() {
-
-    console.log("show update pattern view");
   }
 }
 
