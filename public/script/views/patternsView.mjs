@@ -126,14 +126,14 @@ export class PatternsView extends HTMLElement {
     deleteButtons.forEach((button) => {
       button.addEventListener("click", async () => {
         console.log("Slett oppskrift-knapp trykket på", button.dataset.id);
-        const patternToDelete = {id: button.dataset.id};
+        const id = parseInt(button.dataset.id, 10);
 
         const confirmWindow = confirm("Er du sikker på at du vil slette denne oppskriften?");
         if (!confirmWindow) {
           return;
         }
         try{
-            await deletePattern(patternToDelete);
+            await deletePattern(id);
             this.loadPatterns();
         }catch(error){
             console.error(error);

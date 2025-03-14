@@ -30,10 +30,10 @@ console.log("Values som sendes:", ...values);
   return newPattern ? newPattern.rows[0] : {};
 };
 
- export const deletePattern = async (req, res) => {
+ export const deletePattern = async (id) => {
   const sql = `DELETE FROM public.patterns WHERE id = $1
   RETURNING *`;
-    const deletePattern = await purge(sql, req.params.id || id);
+    const deletePattern = await purge(sql, id);
     console.log("deletePattern", deletePattern);
     return deletePattern ? deletePattern.rows[0] : {};
 }; 
