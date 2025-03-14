@@ -24,7 +24,6 @@ async function navigateTo(route) {
     case "home":
       main.appendChild(homeView);
       homeView.update();
-      console.log("Navigerer til home");
       break;
     case "patterns":
       main.appendChild(patternsView);
@@ -45,8 +44,6 @@ async function navigateTo(route) {
     default:
       main.innerHTML = "<h2>Siden finnes ikke</h2>";
   }
-
-  console.log("route", route);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -57,23 +54,43 @@ document.addEventListener("DOMContentLoaded", () => {
       navigateTo(route);
     });
   });
-
-  console.log("navigate", navigate);
-
   navigateTo("home");
+  const installButton = document.getElementById("installButton");
+  if (!installButton) {
+  }
+  //Kode fra "What PWA Can Do Today" - https://whatpwacando.today/installation----- start
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    window.deferredPrompt = event;
+    installButton.style.display = "block";
+  });
+
+  installButton.addEventListener("click", async () => {
+    if (window.deferredPrompt) {
+      window.deferredPrompt.prompt();
+    } else {
+      installButton.style.display = "none";
+    }
+  });
+  //Kode fra "What PWA Can Do Today" - https://whatpwacando.today/installation----- slutt
 });
 
 main.addEventListener("addNewPattern", () => {
-  console.log("addNewPattern event");
   navigateTo("addPattern");
 });
 
 main.addEventListener("showPatterns", () => {
-  console.log("showPatterns event");
+  getPatterns();
   navigateTo("patterns");
 });
 
+main.addEventListener("updatePattern", (event) => {
+  const id = event.detail.id;
+  updatePatternView.getCorrectId(id);
+  navigateTo("updatePattern");
+});
 
-
-  
-
+main.addEventListener("patternUpdated", (event) => {
+  getPatterns();
+  navigateTo("patterns");
+});
