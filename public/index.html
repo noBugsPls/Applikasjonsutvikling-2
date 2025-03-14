@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Knitting Patterns</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="manifest" href="manifest.webmanifest">
-</head>
-<script src="app.js" type="module"></script>
-<body>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="manifest" href="manifest.webmanifest" />
+  </head>
+  <body>
     <nav>
-            <a href="#" data-route="home">Hjem</a>
-            <a href="#" data-route="patterns">Oppskrifter</a>
-            <a href="#" data-route="about">Om</a>
-            <a href="#" data-route="license">Lisenser</a>
-            <button href="#" data-route="home"
-            id="installButton">Installer app</button>
+      <a href="#" data-route="home">Hjem</a>
+      <a href="#" data-route="patterns">Oppskrifter</a>
+      <a href="#" data-route="about">Om</a>
+      <a href="#" data-route="license">Lisenser</a>
+      <button data-route="home" id="installButton">Installer app</button>
     </nav>
     <main id="app"></main>
+    <script src="./script/app.mjs" type="module" defer></script>
 </body>
 </html>
