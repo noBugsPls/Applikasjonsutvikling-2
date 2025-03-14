@@ -44,8 +44,7 @@ export async function deletePattern(id) {
     getPatterns();
     return await response.json();
   } catch (error) {
-    res.status(HTTP_CODES.SERVER_ERROR.INTERNAL_SERVER_ERROR)
-   .json({ error: "Error creating pattern", details: error.message });
-
+    console.error("Error deleting pattern", error);
+    throw error;
   }
 }
