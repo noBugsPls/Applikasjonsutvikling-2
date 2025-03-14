@@ -4,7 +4,7 @@ import { getPatterns, deletePattern } from "../apiService.mjs";
 
 //============= HTML =============
 const patternsViewHTML = `
-<link href="css/style.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 <h1>Strikkeoppskrifter</h1>
 <div id="patternsContainer"></div>
 `;
