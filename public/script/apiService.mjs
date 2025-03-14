@@ -10,6 +10,35 @@ export async function getPatterns() {
   }
 }
 
+export async function getPatternById(id) {
+  try {
+    const response = await fetch(`/patterns/${id}`, { cache: "no-store" });
+    if (!response.ok) throw new Error("Error fetching pattern");
+    return await response.json();
+  } catch (error) {
+    console.error("Error in getPatternById: ", error);
+  }
+};
+
+export async function updatePattern(id, updatedPatternData) {
+  try {
+    const patternId = typeof id === "object" ? id.id : id;
+    const response = await fetch(`/patterns/${patternId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedPatternData),
+    });
+    if (!response.ok) {
+      console.error("Error updating pattern", response.status);
+      return;
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating pattern", error);
+    throw error;
+  }
+};
+
 export async function createPattern(newPatternData) {
    try {
     const response = await fetch("/patterns", {
