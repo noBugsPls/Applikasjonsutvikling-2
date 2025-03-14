@@ -20,14 +20,12 @@ server.use(sessionMiddleware);
 server.use(countVisits);
 server.use(logger);
 
-
- server.get("/visits", (req, res) => {
+server.get("/visits", (req, res) => {
   res.json({
     total_visits: req.session.visits.total,
     path_visits: req.session.visits.paths,
   });
-}); 
-
+});
 
 //------------------------ 404 error-code ------------------------
 server.use((req, res, next) => {

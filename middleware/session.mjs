@@ -2,7 +2,6 @@ import session from "express-session";
 import FileStoreFactory from "session-file-store";
 import fs from "node:fs/promises";
 
-
 const secretMessage = process.env.SECRET_MESSAGE || "Dette er en hemmelighet!";
 
 const FileStore = FileStoreFactory(session);
@@ -25,26 +24,23 @@ const sessionMiddleware = session({
 });
 
 const countVisits = (req, res, next) => {
-  if (!req.session.visits){
+  if (!req.session.visits) {
     req.session.visits = { total: 0, paths: {} };
   }
 
   req.session.visits.total += 1;
   const path = req.path;
-  if(!req.session.visits.paths){
+  if (!req.session.visits.paths) {
     req.session.visits.paths = {};
   }
 
   req.session.visits.paths[path] = (req.session.visits.paths[path] || 0) + 1;
 
-   res.locals.visits = {
+  res.locals.visits = {
     total_visits: req.session.visits.total,
     path_visits: req.session.visits.paths,
-  }; 
+  };
   next();
-}
+};
 
-
-
-
-export {sessionMiddleware, countVisits};
+export { sessionMiddleware, countVisits };
