@@ -13,5 +13,5 @@ Lisens for ikoner:
 Color Combo
 ID for brukt ikon: #7435438
 
-# SKJULTE API_ENDEPUNKTER
+### SKJULTE API_ENDEPUNKTER
 * "/visits" - viser antall ganger et API_ENDEPUNKT er besøkt.
