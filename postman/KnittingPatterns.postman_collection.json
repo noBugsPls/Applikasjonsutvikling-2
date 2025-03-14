@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "f2975077-a099-491e-8537-96b489c71a4e",
-		"name": "KnittingPatterns API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"name": "KnittingPatterns",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "41251738"
 	},
 	"item": [
@@ -11,15 +11,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/patterns",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"patterns"
-					]
-				}
+				"url": "{{baseUrl}}/patterns"
 			},
 			"response": []
 		},
@@ -36,22 +28,14 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/patterns",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"patterns"
-					]
-				}
+				"url": "{{baseUrl}}/patterns"
 			},
 			"response": []
 		},
 		{
 			"name": "updatePattern",
 			"request": {
-				"method": "PUT",
+				"method": "PATCH",
 				"header": [],
 				"url": {
 					"raw": "{{baseUrl}}/patterns/:id",
