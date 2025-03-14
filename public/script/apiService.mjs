@@ -42,7 +42,11 @@ export async function deletePattern(id) {
       return;
     }
     getPatterns();
-    return await response.json();
+    if(response.status === 204) {
+      return null;
+    }else{
+      return await response.json();
+    }
   } catch (error) {
     console.error("Error deleting pattern", error);
     throw error;
